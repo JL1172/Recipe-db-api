@@ -4,7 +4,14 @@
   "description": "Your assignment page on Canvas should contain instructions for submitting this project. If you are still unsure, reach out to School Staff.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start" : "node index.js",
+    "server" : "nodemon index.js",
+    "up" : "knex migrate:up",
+    "down" : "knex migrate:down",
+    "latest" : "knex migrate:latest",
+    "rollback" : "knex migrate:rollback",
+    "seed" : "knex seed:run",
+    "resetdb" : "npm run rollback && npm run latest && npm run seed"
   },
   "keywords": [],
   "author": "",
