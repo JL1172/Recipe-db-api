@@ -9,7 +9,7 @@ exports.up = async function(knex) {
     table.string("recipe_name",128)
     .unique()
     .notNullable();
-    table.timestamp("created at").defaultTo(knex.fn.now());
+    table.timestamp("created_at").defaultTo(knex.fn.now());
   })
   .createTable("Steps",table => {
     table.increments("step_id").primary();
