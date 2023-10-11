@@ -5,44 +5,45 @@
 exports.up = async function(knex) {
   await knex.schema
   .createTable("Recipes",table => {
-    table.increments("recipe_id")
+    table.increments("recipe_id").primary();
     table.string("recipe_name",128)
     .unique()
-    .notNullable()
-    table.timestamp("created at").defaultTo(knex.fn.now())
+    .notNullable();
+    table.timestamp("created at").defaultTo(knex.fn.now());
   })
   .createTable("Steps",table => {
-    table.increments("step_id")
+    table.increments("step_id").primary();
+    table.integer("step_number").notNullable();
     table.string("step_instructions").notNullable();
-    table.integer("recipe_name")
+    table.integer("recipe_id")
     .unsigned()
     .notNullable()
     .references("recipe_id")
     .inTable("Recipes")
     .onDelete("RESTRICT")
-    .onUpdate("RESTRICT")
+    .onUpdate("RESTRICT");
   })
   .createTable("Ingredients",table => {
-    table.increments("ingredient_id")
-    table.string("ingredient_text").notNullable()
+    table.increments("ingredient_id").primary();
+    table.string("ingredient_text").notNullable();
     table.integer("step_id")
     .unsigned()
     .notNullable()
     .references("step_id")
     .inTable("Steps")
     .onDelete("RESTRICT")
-    .onUpdate("RESTRICT")
+    .onUpdate("RESTRICT");
   })
   .createTable("Quantities",table => {
-    table.increments("quantity_id")
-    table.string("quantity_text").notNullable()
+    table.increments("quantity_id").primary();
+    table.integer("quantity_text").notNullable();
     table.integer("ingredient_id")
     .unsigned()
     .notNullable()
     .references("ingredient_id")
     .inTable("Ingredients")
     .onDelete("RESTRICT")
-    .onUpdate("RESTRICT")
+    .onUpdate("RESTRICT");
   })
 };
 
