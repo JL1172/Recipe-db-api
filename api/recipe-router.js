@@ -11,10 +11,10 @@ router.get("/:id",validateRecipeId,async(req,res,next)=> {
     } catch(err) {next(err)}
 })
 
-router.post("/:id",async(req,res,next)=> {
+router.post("/",async(req,res,next)=> {
     try {
-        const result = await RecipeData.postNewRecipe(req.params.id,req.body);
-        res.status(201).json(result);
+        await RecipeData.postNewRecipe(req.body);
+        res.status(201).json({message : "created successfully"});
     } catch (err) {next(err)}
 })
 

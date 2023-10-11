@@ -10,5 +10,6 @@ exports.seed = async function(knex) {
     {ingredient_text: 'jelly',ingredient_id : 2 },
     {ingredient_text: 'ham',ingredient_id : 3},
     {ingredient_text: 'cheese',ingredient_id : 4},
+    {ingredient_text : "eggs",ingredient_id : 5}
   ]);
 };
