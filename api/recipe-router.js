@@ -11,6 +11,12 @@ router.get("/:id",validateRecipeId,async(req,res,next)=> {
     } catch(err) {next(err)}
 })
 
+router.post("/:id",async(req,res,next)=> {
+    try {
+        const result = await RecipeData.postNewRecipe(req.params.id,req.body);
+        res.status(201).json(result);
+    } catch (err) {next(err)}
+})
 
 router.use((error, req, res, next) => { //eslint-disable-line
     res.status(error.status || 500).json({

@@ -1,3 +1,4 @@
+const { isNetworkError } = require("axios-retry");
 const db = require("../data/db-config");
 
 async function getRecipeById(recipe_id) { //eslint-disable-line
@@ -11,7 +12,6 @@ async function getRecipeById(recipe_id) { //eslint-disable-line
     const steps = [];
 
     for (let key of firstReturnResult) {
-        console.log(key)
         steps.push({
             step_id : key.step_id,
             step_number : key.step_number,
@@ -37,8 +37,38 @@ async function getRecipeById(recipe_id) { //eslint-disable-line
     return returnObj;
 }
 
+
+async function postNewRecipe(newRecipeData) {
+    const {recipe_name,steps} = newRecipeData;
+
+    const resultId = await db("recipes as r")
+    .insert(recipe_name)
+    
+    const stepId = await db("steps").where({recipe_id : resultId}).first();
+
+    const ingredientNames = [];
+    for (let i in steps) {
+        const result = await db("ingredients").where({ingredient_id : steps[i].ingredients.ingredient_id})
+        ingredientNames.push(result.ingredient_text); 
+    }
+
+    for (let i in steps) {
+        await db("steps as s")
+        .insert({
+            step_instructions : steps[i].step_instructions,
+             recipe_id : resultId
+            })
+    }
+
+
+
+   
+
+
+}
 module.exports = {
     getRecipeById,
+    postNewRecipe
 }
 
 
