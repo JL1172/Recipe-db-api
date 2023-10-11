@@ -38,6 +38,8 @@ async function getRecipeById(recipe_id) { //eslint-disable-line
 }
 
 
+
+
 async function postNewRecipe(newRecipeData) {
     const { recipe_name, steps } = newRecipeData;
 
@@ -46,29 +48,40 @@ async function postNewRecipe(newRecipeData) {
 
 
     for (let i in steps) {
+        const { ingredients } = steps[i]; //eslint-disable-line
         if (steps[i].ingredients) {
-            const result = await db("steps")
+            const result = await db("steps") //eslint-disable-line
                 .insert({
                     step_number: steps[i].step_number,
                     step_instructions: steps[i].step_instructions,
                     recipe_id: resultId[0]
                 })
-               
+
+
+            for (let j = 0; j < steps[i].ingredients.length; j++) {
+                if (steps[i].ingredients) {
+                    const step_id = await db("steps").where({ recipe_id: resultId[0] });
+                    const ingUsed = await db("ingredients_used").insert({ //eslint-disable-line
+                        ingredient_id: steps[i].ingredients[j].ingredient_id,
+                        step_id: step_id[j].step_id,
+                    })
+                    const quantitiesUsed = await db("quantities").insert({ //eslint-disable-line
+                        quantity_text :  steps[i].ingredients[j].quantity,
+                        ingredient_id :  steps[i].ingredients[j].ingredient_id,
+                    })
+                }
+            }
+
+
         } else {
-            const result = await db("steps")
-            .insert({
-                step_number : steps[i].step_number,
-                step_instructions : steps[i].step_instructions,
-                 recipe_id : resultId[0]
+            const result = await db("steps") //eslint-disable-line
+                .insert({
+                    step_number: steps[i].step_number,
+                    step_instructions: steps[i].step_instructions,
+                    recipe_id: resultId[0]
                 })
         }
-        //     await db('quantities')
-        //     .insert({
-        //         quantity_text : steps[i].ingredients.quantity,
-        //         ingredient_id : steps[i].ingredients.ingredient_id,
-        //     })
     }
-
 
 }
 module.exports = {
@@ -97,6 +110,38 @@ module.exports = {
         { "ingredient_id": 27, "ingredient_name": "olive oil", "quantity": 0.014 }
       ]
     },
+  ]
+}
+*/
+
+
+
+//!post payload
+/*
+{
+  "recipe_name": "Spaghetti Bolognese",
+  "steps": [
+    {
+      "step_number": 1,
+      "step_instructions": "Put a large saucepan on a medium heat"
+    },
+    {
+      "step_number": 2,
+      "step_instructions": "Mix eggs and ham",
+       "ingredients": [
+        { "ingredient_id": 5, "quantity": 2 },
+        { "ingredient_id": 4, "quantity": 0.1 }
+      ]
+    },
+    {
+      "step_number": 3,
+      "step_instructions": "peanutbutter and ham",
+       "ingredients": [
+        { "ingredient_id": 1, "quantity": 2 },
+        { "ingredient_id": 4, "quantity": 8 },
+        { "ingredient_id": 3, "quantity": 10 }
+      ]
+    }
   ]
 }
 */
