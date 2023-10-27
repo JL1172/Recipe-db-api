@@ -1,3 +1,32 @@
+# Recipe Database and RESTful API
+
+## Project Description
+
+****Our project aims to create a robust relational database and an accompanying RESTful API, facilitating efficient access to valuable data. The foundation of this endeavor lies in our use of Knex, a powerful tool for managing database migrations, seeding, and configuration. This backend project is designed to support the creation and storage of numerous recipes while ensuring data normalization and scalability.****
+
+## Key Features
+
+1. **Relational Database:** We have meticulously designed a relational database to efficiently organize and store data. This enables us to establish logical relationships between various entities, ensuring data integrity and consistency.
+
+2. **RESTful API:** The heart of our project is the RESTful API, which provides a simple and consistent interface for interacting with the database. This API allows users to perform essential operations like creating, reading, updating, and deleting recipes. It also offers advanced querying capabilities for retrieving specific data from the database.
+
+3. **Knex Integration:** Knex is utilized for managing database migrations, enabling seamless updates to the database schema as requirements evolve. It also streamlines the process of seeding initial data and configuring the database connection.
+
+4. **Recipe Management:** Our project focuses on the storage and management of recipes. Users can create, edit, and delete recipes, making it an ideal solution for culinary enthusiasts, restaurants, or anyone interested in managing their recipe collection.
+
+5. **Data Normalization:** To ensure data consistency and reduce redundancy, we employ data normalization techniques. This approach simplifies database management and enhances data integrity.
+
+6. **Scalability:** The architecture of the project is designed with scalability in mind. As your needs grow, our system can accommodate increased data and user loads, making it a suitable solution for both small-scale and large-scale applications.
+
+## Usage
+
+You can follow these steps to set up and run the project:
+
+1. **Database Setup:** First, configure your database settings in the `config` files.
+
+2. **Database Migration:** Use Knex to manage database migrations by running the following command:
+
+
 # Node DB4 Module Project
 
 ## Instructions
